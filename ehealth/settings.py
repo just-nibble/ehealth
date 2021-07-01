@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     ### USER CREATED ###
     'accounts.apps.AccountsConfig',
     'api.apps.ApiConfig',
+    'wallet.apps.WallerConfig',
 
     ### 3RD PARTY ###
     'corsheaders',
