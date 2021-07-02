@@ -32,7 +32,7 @@ DEBUG = True
 HOSTED = True
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['e-clinic-backend.herokuapp.com']
 
 
 # Application definition
