@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     ### USER CREATED ###
     'accounts.apps.AccountsConfig',
     'api.apps.ApiConfig',
-    'wallet.apps.WallerConfig',
+    'wallet.apps.WalletConfig',
 
     ### 3RD PARTY ###
     'corsheaders',
@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'django_elasticsearch_dsl',
 ]
 
 # Custom User Model
@@ -191,6 +192,12 @@ REST_FRAMEWORK = {
 
 REST_AUTH_REGISTER_SERIALIZERS = {
     "REGISTER_SERIALIZER": "accounts.serializers.RegistrationSerializer",
+}
+
+ELASTICSEARCH_DSL={
+    'default': {
+        'hosts': 'localhost:9200'
+    },
 }
 
 SITE_ID = 1

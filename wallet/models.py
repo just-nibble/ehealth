@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.db import models
 from .errors import InsufficientBalance
-from accounts.models import User
+from accounts.models import CustomUser as User
 
 
 
@@ -15,8 +15,8 @@ Transaction_Type = (
 
 
 class Currency(models.Model):
-    name = models.CharField(_('name'), max_length=255)
-    symbol = models.CharField(_('System'), max_length=5)
+    name = models.CharField(max_length=255)
+    symbol = models.CharField(max_length=5)
     active = models.BooleanField(default=True)
 
     class Meta:
