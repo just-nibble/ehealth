@@ -35,4 +35,5 @@ urlpatterns = [
     ),
     path('api/v1/swagger-docs/', schema_view),
     path('api/v1/', include("api.urls")),
+    #path('api-auth/', include('accounts.urls')),
 ]
