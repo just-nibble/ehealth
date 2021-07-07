@@ -29,10 +29,10 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-HOSTED = True
+HOSTED = False
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['e-clinic-backend.herokuapp.com']
 
 
 # Application definition
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     ### USER CREATED ###
     'accounts.apps.AccountsConfig',
     'api.apps.ApiConfig',
+    'coupons.apps.CouponsConfig',
     'wallet.apps.WalletConfig',
 
     ### 3RD PARTY ###
@@ -132,8 +133,12 @@ WSGI_APPLICATION = 'ehealth.wsgi.application'
 
 DATABASES = {
     'default': {
-       'ENGINE': 'django.db.backends.sqlite3',
-       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASS'),
+        'HOST': 'ec2-3-233-43-103.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 

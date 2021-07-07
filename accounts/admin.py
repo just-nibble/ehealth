@@ -24,12 +24,12 @@ class UserAdmin(BaseUserAdmin):
             None,
             {
                 'classes': ('wide',),
-                'fields': ('username', 'email', 'password1', 'password2')
+                'fields': ('email', 'password1', 'password2')
             }
         ),
     )
 
-    list_display = ('username', 'email', 'type', 'is_staff', 'last_login')
+    list_display = ('email', 'type', 'is_staff', 'last_login')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
     search_fields = ('email',)
     ordering = ('email',)

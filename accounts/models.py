@@ -90,3 +90,11 @@ class CustomUser(AbstractUser):
         return str(self.email)
 
 
+
+class MedicalRecord(models.Model):
+    patient = models.ForeignKey(CustomUser, null=True, blank=True, on_delete=models.PROTECT, related_name="patient")
+    marital_status = models.CharField(max_length=20, null=True, blank=True)
+    previous_doctor = models.ForeignKey(CustomUser ,null=True, blank=True, on_delete=models.PROTECT, verbose_name="previous or referring doctor", related_name="doctor")
+    date_of_last_exam = models.DateField()
+    problems = models.TextField(null=True, blank=True)
+    blood_transfusion = models.BooleanField(default=False)
