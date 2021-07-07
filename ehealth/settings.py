@@ -62,7 +62,11 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+<<<<<<< HEAD
+    #'phonenumber_field',
+=======
     'django_elasticsearch_dsl',
+>>>>>>> 301be54dbd6c76562214f061cc14c3361cc4ddbb
 ]
 
 # Custom User Model
@@ -83,10 +87,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #EMAIL_PORT = 587
 
 # Allauth Config
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 3
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 
@@ -186,7 +190,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        #'rest_framework.permissions.IsAuthenticated',
     ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -201,6 +205,10 @@ REST_AUTH_REGISTER_SERIALIZERS = {
     "REGISTER_SERIALIZER": "accounts.serializers.RegistrationSerializer",
 }
 
+<<<<<<< HEAD
+
+SITE_ID = 1
+=======
 ELASTICSEARCH_DSL={
     'default': {
         'hosts': 'localhost:9200'
@@ -246,3 +254,4 @@ if HOSTED is False:
     except ImportError:
         pass
 
+>>>>>>> 301be54dbd6c76562214f061cc14c3361cc4ddbb
