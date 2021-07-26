@@ -52,4 +52,8 @@ class RegistrationSerializer(RegisterSerializer):
         user.experience = exp
         user.save()
         
-    
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model
+        fields = "__all__"

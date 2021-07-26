@@ -35,5 +35,8 @@ urlpatterns = [
     ),
     path('api/v1/swagger-docs/', schema_view),
     path('api/v1/', include("api.urls")),
-    #path('api-auth/', include('accounts.urls')),
+    path('api/v1/wallet', include('wallet.urls')),
+    path("payments/", include("djangoflutterwave.urls", namespace="djangoflutterwave")),
+    path("payments/", include("payments.urls")),
+    path("api/v1/appointments/", include("appointments.urls")),
 ]

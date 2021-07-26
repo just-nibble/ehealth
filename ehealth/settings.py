@@ -30,9 +30,9 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 HOSTED = False
-DEBUG_PROPAGATE_EXCEPTIONS = True
+DEBUG_PROPAGATE_EXCEPTIONS = False
 
-ALLOWED_HOSTS = ['e-clinic-backend.herokuapp.com']
+ALLOWED_HOSTS = ['*', 'e-clinic-backend.herokuapp.com', '127.0.0.1:8000', 'localhost', 'localhost:5000',]
 
 
 # Application definition
@@ -50,11 +50,16 @@ INSTALLED_APPS = [
     ### USER CREATED ###
     'accounts.apps.AccountsConfig',
     'api.apps.ApiConfig',
+    'appointments.apps.AppointmentsConfig',
     'coupons.apps.CouponsConfig',
+    'pricing.apps.PricingConfig',
     'wallet.apps.WalletConfig',
 
     ### 3RD PARTY ###
     'corsheaders',
+
+    'djangoflutterwave',
+    'django_elasticsearch_dsl',
     'rest_framework',
     'rest_framework.authtoken',
     # rest swagger docs
@@ -62,11 +67,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-<<<<<<< HEAD
     #'phonenumber_field',
-=======
-    'django_elasticsearch_dsl',
->>>>>>> 301be54dbd6c76562214f061cc14c3361cc4ddbb
 ]
 
 # Custom User Model
@@ -142,6 +143,17 @@ DATABASES = {
     }
 }
 
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOWED_ORIGINS = [
+    "https://example.com",
+    "https://sub.example.com",
+    "http://localhost:8080",
+    "http://127.0.0.1:9000",
+    "http://127.0.0.1:5500",
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -205,46 +217,20 @@ REST_AUTH_REGISTER_SERIALIZERS = {
     "REGISTER_SERIALIZER": "accounts.serializers.RegistrationSerializer",
 }
 
-<<<<<<< HEAD
 
 SITE_ID = 1
-=======
+
 ELASTICSEARCH_DSL={
     'default': {
-        'hosts': 'localhost:9200'
+        'hosts': env('ELASTIC_HOST')
     },
 }
 
-SITE_ID = 1
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
-
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    }
-}
+FLW_PRODUCTION_PUBLIC_KEY = env('FLW_PRODUCTION_PUBLIC_KEY')
+FLW_PRODUCTION_SECRET_KEY = env('FLW_PRODUCTION_SECRET_KEY')
+FLW_SANDBOX_PUBLIC_KEY = env('FLW_SANDBOX_PUBLIC_KEY')
+FLW_SANDBOX_SECRET_KEY = env('FLW_SANDBOX_SECRET_KEY')
+FLW_SANDBOX = True
 
 django_heroku.settings(locals())
 
@@ -253,5 +239,3 @@ if HOSTED is False:
         from .local_settings import *
     except ImportError:
         pass
-
->>>>>>> 301be54dbd6c76562214f061cc14c3361cc4ddbb

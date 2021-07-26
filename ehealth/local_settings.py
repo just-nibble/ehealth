@@ -9,3 +9,9 @@ DATABASES = {
        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+ELASTICSEARCH_DSL={
+    'default': {
+        'hosts': 'localhost:9200'
+    },
+}
