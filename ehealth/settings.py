@@ -138,7 +138,7 @@ DATABASES = {
         'NAME': env('DATABASE_NAME'),
         'USER': env('DATABASE_USER'),
         'PASSWORD': env('DATABASE_PASS'),
-        'HOST': 'ec2-3-233-43-103.compute-1.amazonaws.com',
+        'HOST': env('DATABASE_HOST'),
         'PORT': '5432',
     }
 }
