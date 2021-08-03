@@ -3,7 +3,7 @@ coreapi
 coreschema
 
 Django==3.0
-django-allauth==0.41.0
+django-allauth
 django-cors-headers
 django-environ
 django-heroku
@@ -12,8 +12,6 @@ django-rest-registration
 django-rest-swagger
 djangorestframework
 djangorestframework-filters
-django-phone-verify
-django-phonenumber-field
 django-elasticsearch-dsl
 djangoflutterwave
 
@@ -21,4 +19,4 @@ Gunicorn
 Pillow
 python-decouple
 drf-yasg
-psycopg2==2.8.6
+psycopg2

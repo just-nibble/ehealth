@@ -58,16 +58,15 @@ INSTALLED_APPS = [
     ### 3RD PARTY ###
     'corsheaders',
 
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'djangoflutterwave',
     'django_elasticsearch_dsl',
     'rest_framework',
     'rest_framework.authtoken',
     # rest swagger docs
-    'rest_framework_swagger',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    #'phonenumber_field',
+    'rest_framework_swagger',   
 ]
 
 # Custom User Model
