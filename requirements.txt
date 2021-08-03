@@ -14,9 +14,13 @@ djangorestframework
 djangorestframework-filters
 django-elasticsearch-dsl
 djangoflutterwave
+drf-yasg
+
 
 Gunicorn
+
 Pillow
+phonenumbers
 python-decouple
-drf-yasg
+
 psycopg2
