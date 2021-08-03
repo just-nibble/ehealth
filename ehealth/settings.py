@@ -28,9 +28,9 @@ SECRET_KEY = env('SECRET_KEY')
 #SECRET_KEY = 'django-insecure-rd5+kf9kdavrxiuh*uxv@5!9h3xt^@^cq%*8sx8n_%#=^jyio*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 HOSTED = True
-DEBUG_PROPAGATE_EXCEPTIONS = True
+DEBUG_PROPAGATE_EXCEPTIONS = False
 
 ALLOWED_HOSTS = ['*', 'e-clinic-backend.herokuapp.com', '127.0.0.1:8000', 'localhost', 'localhost:5000',]
 
