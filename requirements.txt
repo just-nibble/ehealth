@@ -15,7 +15,7 @@ djangorestframework-filters
 django-elasticsearch-dsl
 djangoflutterwave
 drf-yasg
-
+django-phonenumber-field
 
 Gunicorn
 
