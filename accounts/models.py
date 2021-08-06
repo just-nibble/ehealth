@@ -49,19 +49,19 @@ class CustomUserManager(BaseUserManager):
 
 
 class Education(models.Model):
-    degree = models.CharField(max_length=5000)
-    college = models.CharField(max_length=5000)
-    grad_year = models.DateField()
+    degree = models.CharField(max_length=5000, null=True, blank=True)
+    college = models.CharField(max_length=5000, null=True, blank=True)
+    grad_year = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return self.degree +' @ '+ self.college
 
 
 class Experience(models.Model):
-    position = models.CharField(max_length=5000)
-    work_place = models.CharField(max_length=5000, verbose_name="place of work")
-    start_year = models.DateField()
-    end_year = models.DateField()
+    position = models.CharField(max_length=5000, null=True, blank=True)
+    work_place = models.CharField(max_length=5000, verbose_name="place of work", null=True, blank=True)
+    start_year = models.DateField(null=True, blank=True)
+    end_year = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return self.role + ' @ ' + self.work_place
@@ -81,8 +81,8 @@ class CustomUser(AbstractUser):
     phone = PhoneNumberField(null=True)
 
     # Doctor
-    education = models.ForeignKey(Education, on_delete=models.CASCADE, null=True)
-    experience = models.ForeignKey(Experience, on_delete=models.CASCADE, null=True)
+    education = models.ForeignKey(Education, on_delete=models.CASCADE, null=True, blank=True)
+    experience = models.ForeignKey(Experience, on_delete=models.CASCADE, null=True, blank=True)
 
     #Patient
     diabetes = models.BooleanField(default=False)
