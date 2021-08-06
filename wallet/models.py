@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db import models
 from .errors import InsufficientBalance
 from accounts.models import CustomUser as User
-
+from django.db.models.signals import post_save
 
 
 Transaction_Type = (
@@ -61,6 +61,12 @@ class Wallet(models.Model):
     def remove(self, amount):
         self.current_balance -= amount
         return self.save()
+
+    def create_wallet(sender, instance, created, **kwargs):
+        if created:
+            Wallet.objects.create(user=instance)
+    
+    post_save.connect(create_wallet, sender=User)
 
 
 class Transaction(models.Model):

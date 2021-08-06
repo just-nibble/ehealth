@@ -29,7 +29,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-HOSTED = True
+HOSTED = False
 DEBUG_PROPAGATE_EXCEPTIONS = False
 
 ALLOWED_HOSTS = ['*', 'e-clinic-backend.herokuapp.com', '127.0.0.1:8000', 'localhost', 'localhost:5000',]
@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'coupons.apps.CouponsConfig',
     'payments.apps.PaymentsConfig',
     'pricing.apps.PricingConfig',
-    'recommedations.apps.Recommedations',
+    'recommedations.apps.RecommedationsConfig',
     'review.apps.ReviewConfig',
     'wallet.apps.WalletConfig',
 

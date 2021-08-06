@@ -1,14 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-import pytz
 from phonenumber_field.modelfields import PhoneNumberField
-
-# Create your models here.
-
-
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import ugettext_lazy as _
+import pytz
 
+# Create your models here.
 
 user_type = (
     ("patient", "Patient"), ("doctor", "Doctor"), ("organization", "Organization")
@@ -74,7 +71,7 @@ class CustomUser(AbstractUser):
     # General
     profile_picture = models.ImageField(upload_to="profile_pictures", null=True, blank=True)
     name = models.CharField(max_length=500, null=True)
-    email = models.EmailField(_('email address'), unique=True)
+    email = models.EmailField(unique=True)
     username = models.CharField(unique=True, max_length=15)
     type = models.CharField(max_length=20, choices=user_type, default="patient")
     dob = models.DateField(null=True)
