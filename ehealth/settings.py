@@ -51,8 +51,12 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'api.apps.ApiConfig',
     'appointments.apps.AppointmentsConfig',
+    'contact.apps.ContactConfig',
     'coupons.apps.CouponsConfig',
+    'payments.apps.PaymentsConfig',
     'pricing.apps.PricingConfig',
+    'recommedations.apps.Recommedations',
+    'review.apps.ReviewConfig',
     'wallet.apps.WalletConfig',
 
     ### 3RD PARTY ###
