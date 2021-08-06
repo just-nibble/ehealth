@@ -29,7 +29,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-HOSTED = False
+HOSTED = True
 DEBUG_PROPAGATE_EXCEPTIONS = False
 
 ALLOWED_HOSTS = ['*', 'e-clinic-backend.herokuapp.com', '127.0.0.1:8000', 'localhost', 'localhost:5000',]
