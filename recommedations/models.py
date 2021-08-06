@@ -1,11 +1,7 @@
-from django.db import models
-from accounts.models import CustomUser
+#from django.db import models
+from django.contrib.gis.db import models
 # Create your models here.
 
 
-class DoctorLocationBased(models.Model):
-    pass
-
-
-class HospitalLocationBased(models.Model):
-    pass
+class Location(models.Model):
+    location = models.PointField(null=True, blank=True)

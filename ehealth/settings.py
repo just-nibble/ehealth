@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Allauth Dependency
     'django.contrib.sites',
+    'django.contrib.gis',
 
     ### USER CREATED ###
     'accounts.apps.AccountsConfig',
@@ -210,7 +211,7 @@ REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
         # new
-        'rest_framework.authentication.SessionAuthentication',
+        #'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication'
     ],
 

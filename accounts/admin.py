@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import CustomUser, Education, Experience
+from .models import CustomUser, Education, Experience, Location
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.gis.admin import OSMGeoAdmin
 
 
 # Register your models here.
@@ -38,3 +39,7 @@ class UserAdmin(BaseUserAdmin):
 admin.site.register(CustomUser, UserAdmin)
 admin.site.register(Education)
 admin.site.register(Experience)
+
+@admin.register(Location)
+class LocalAdmin(OSMGeoAdmin):
+    list_display = ('location',)

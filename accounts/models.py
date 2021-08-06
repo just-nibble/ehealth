@@ -3,7 +3,9 @@ from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import ugettext_lazy as _
+from recommedations.models import Location
 import pytz
+
 
 # Create your models here.
 
@@ -67,6 +69,9 @@ class Experience(models.Model):
         return self.role + ' @ ' + self.work_place
 
 
+
+
+
 class CustomUser(AbstractUser):
     # General
     profile_picture = models.ImageField(upload_to="profile_pictures", null=True, blank=True)
@@ -79,6 +84,7 @@ class CustomUser(AbstractUser):
     country = models.CharField(max_length=2, choices=pytz.country_names.items(), null=True)
     address = models.CharField(max_length=5000, null=True)
     phone = PhoneNumberField(null=True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True)
 
     # Doctor
     education = models.ForeignKey(Education, on_delete=models.CASCADE, null=True, blank=True)
