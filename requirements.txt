@@ -12,11 +12,11 @@ django-rest-registration
 django-rest-swagger
 djangorestframework
 djangorestframework-filters
-django-elasticsearch-dsl
+django-elasticsearch-dsl==0.5.1
 djangoflutterwave
 drf-yasg
 django-phonenumber-field
-elasticsearch==5.0
+elasticsearch-dsl==6.0
 
 Gunicorn
 
