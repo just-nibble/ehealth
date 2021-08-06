@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import environ
 import os
 import django_heroku
+import dj_database_url
 
 env = environ.Env()
 environ.Env.read_env()
@@ -139,6 +140,22 @@ WSGI_APPLICATION = 'ehealth.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',,
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASS'),
+        'HOST': env('DATABASE_HOST'),
+        'PORT': '5432',
+    }
+}
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+
+'''
+DATABASES = {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': env('DATABASE_NAME'),
         'USER': env('DATABASE_USER'),
@@ -147,6 +164,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+'''
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
@@ -236,6 +254,9 @@ FLW_PRODUCTION_SECRET_KEY = env('FLW_PRODUCTION_SECRET_KEY')
 FLW_SANDBOX_PUBLIC_KEY = env('FLW_SANDBOX_PUBLIC_KEY')
 FLW_SANDBOX_SECRET_KEY = env('FLW_SANDBOX_SECRET_KEY')
 FLW_SANDBOX = True
+
+GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH')
+GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH')
 
 django_heroku.settings(locals())
 
