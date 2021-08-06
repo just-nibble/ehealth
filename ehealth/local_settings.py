@@ -1,4 +1,9 @@
 import os
+import environ
+
+
+env = environ.Env()
+environ.Env.read_env()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = True
@@ -13,6 +18,14 @@ DATABASES = {
 
 ELASTICSEARCH_DSL={
     'default': {
+        'hosts': env('ELASTIC_HOST')
+    },
+}
+
+'''
+ELASTICSEARCH_DSL={
+    'default': {
         'hosts': 'localhost:9200'
     },
 }
+'''
