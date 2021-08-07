@@ -7,7 +7,7 @@ from recommedations.models import Location
 import pytz
 
 
-# Create your models here.
+## Create your models here.
 
 user_type = (
     ("patient", "Patient"), ("doctor", "Doctor"), ("organization", "Organization")
