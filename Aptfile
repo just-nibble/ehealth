@@ -5,3 +5,5 @@ binutils
 libproj-dev
 libblas-dev
 libkmldom1
+libproj-dev
+libgeos-dev
