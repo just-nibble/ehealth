@@ -1,9 +1,9 @@
-from django.db import models
+from django.contrib.gis.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import ugettext_lazy as _
-from recommedations.models import Location
+from django_google_maps import fields as map_fields
 import pytz
 
 
@@ -23,7 +23,7 @@ class CustomUserManager(BaseUserManager):
     Custom user model manager where email is the unique identifiers
     for authentication instead of usernames.
     """
-    def create_user(self, email, username, password, **extra_fields):
+    def create_user(self, email, password, **extra_fields):
         """
         Create and save a User with the given username, email and password.
         """
@@ -31,18 +31,17 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_('The Email must be set'))
         email = self.normalize_email(email)
         user = self.model(
-            email=email,
-            username=username,
-                )
+            email=email
+        )
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, email, username, password=None):
+    def create_superuser(self, email, password=None):
         """
         Create and save a superuser with the given username, email and password.
         """
-        user = self.create_user(email, username, password=password)
+        user = self.create_user(email, password=password)
         user.is_staff = True
         user.is_active = True
         user.is_superuser = True
@@ -82,9 +81,10 @@ class CustomUser(AbstractUser):
     dob = models.DateField(null=True)
     gender = models.CharField(max_length=1, choices=gender_choices, default="M", null=True)
     country = models.CharField(max_length=2, choices=pytz.country_names.items(), null=True)
-    address = models.CharField(max_length=5000, null=True)
     phone = PhoneNumberField(null=True)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True)
+    address = map_fields.AddressField(max_length=200, null=True, blank=True)
+    location = models.PointField(null=True, blank=True)
+    #geolocation = map_fields.GeoLocationField(max_length=100, null=True, blank=True)
 
     # Doctor
     education = models.ForeignKey(Education, on_delete=models.CASCADE, null=True, blank=True)
@@ -101,6 +101,7 @@ class CustomUser(AbstractUser):
     sickle_cell = models.BooleanField(default=False)
     allergies = models.BooleanField(default=False)
     previous_surgery = models.BooleanField(default=False)
+
     moi = models.FileField(upload_to="identification_documents", verbose_name="Means of identification", null=True, blank=True)
     
     # Doctor
@@ -117,8 +118,8 @@ class CustomUser(AbstractUser):
     d_id = models.FileField(upload_to="license", verbose_name="Director's ID", null=True, blank=True)
     o_l = models.FileField(upload_to="license", verbose_name="Valid Operating License", null=True, blank=True)
     
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email',]
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
 

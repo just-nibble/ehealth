@@ -18,7 +18,6 @@ class MedicalDocument(Document):
         fields = [
             'email',
             'country',
-            'address',
         ]
 
         # Ignore auto updating of Elasticsearch when a model is saved

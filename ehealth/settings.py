@@ -69,10 +69,13 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'djangoflutterwave',
     'django_elasticsearch_dsl',
+    'django_google_maps',
+    #'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
     # rest swagger docs
     'rest_framework_swagger',   
+    'rest_auth',
 ]
 
 # Custom User Model
@@ -93,10 +96,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #EMAIL_PORT = 587
 
 # Allauth Config
-ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 3
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 
@@ -149,6 +152,7 @@ DATABASES = {
     }
 }
 
+'''
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
@@ -156,6 +160,7 @@ DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 GEOS_LIBRARY_PATH = '/app/.geodjango/geos/lib/libgeos_c.so'
 
 GDAL_LIBRARY_PATH = '/app/.geodjango/gdal/lib/libgdal.so'
+'''
 
 '''
 DATABASES = {
@@ -169,6 +174,8 @@ DATABASES = {
     }
 }
 '''
+
+GOOGLE_MAPS_API_KEY = env('G_API_KEY')
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
@@ -238,10 +245,19 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication'
     ],
 
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+    ],
+
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {
     "REGISTER_SERIALIZER": "accounts.serializers.RegistrationSerializer",
+}
+
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': 'rest_framework:login',
+    'LOGOUT_URL': 'rest_framework:logout',
 }
 
 
@@ -259,8 +275,6 @@ FLW_SANDBOX_PUBLIC_KEY = env('FLW_SANDBOX_PUBLIC_KEY')
 FLW_SANDBOX_SECRET_KEY = env('FLW_SANDBOX_SECRET_KEY')
 FLW_SANDBOX = True
 
-GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH')
-GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH')
 
 django_heroku.settings(locals())
 
