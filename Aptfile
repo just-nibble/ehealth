@@ -4,4 +4,4 @@ python3-gdal
 binutils
 libproj-dev
 libblas-dev
-libkmldom-dev
+libkmldom1
