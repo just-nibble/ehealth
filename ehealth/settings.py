@@ -156,9 +156,13 @@ db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
-GEOS_LIBRARY_PATH = "{}/libgeos_c.so".format(environ.get('GEOS_LIBRARY_PATH'))
-GDAL_LIBRARY_PATH = "{}/libgdal.so".format(environ.get('GDAL_LIBRARY_PATH'))
-PROJ4_LIBRARY_PATH = "{}/libproj.so".format(environ.get('PROJ4_LIBRARY_PATH'))
+try:
+    print environ
+    GEOS_LIBRARY_PATH = environ['GEOS_LIBRARY_PATH']
+    GDAL_LIBRARY_PATH = environ['GDAL_LIBRARY_PATH']
+    PROJ4_LIBRARY_PATH = environ['PROJ4_LIBRARY_PATH']
+except Exception as e:
+    print("Unable to initilalize GEOS paths!" + str(e))
 
 
 '''
