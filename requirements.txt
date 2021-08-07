@@ -2,7 +2,7 @@
 coreapi
 coreschema
 
-Django
+Django==2.2.24
 django-allauth
 django-cors-headers
 django-environ
