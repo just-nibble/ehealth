@@ -19,7 +19,6 @@ django-phonenumber-field
 django-google-maps
 django-rest-auth
 
-GDAL
 Gunicorn
 
 Pillow
