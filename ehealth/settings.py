@@ -140,7 +140,7 @@ WSGI_APPLICATION = 'ehealth.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',,
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': env('DATABASE_NAME'),
         'USER': env('DATABASE_USER'),
         'PASSWORD': env('DATABASE_PASS'),
