@@ -157,7 +157,7 @@ DATABASES['default'].update(db_from_env)
 DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 try:
-    print environ
+    print(environ)
     GEOS_LIBRARY_PATH = environ['GEOS_LIBRARY_PATH']
     GDAL_LIBRARY_PATH = environ['GDAL_LIBRARY_PATH']
     PROJ4_LIBRARY_PATH = environ['PROJ4_LIBRARY_PATH']
