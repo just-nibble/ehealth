@@ -21,7 +21,11 @@ def send_contact_email(sender, instance, **kwargs):
     phone_number = instance.phone_number
     message = instance.message
 
-    html_content = "Dear %s, we have recieved your opinion and would carefully go through it"
-    message=EmailMessage(subject='New Opinion',body=html_content %(name),to=[email_address])
+    html_content = '''Dear %s,
+    We have recieved your opinion and would carefully go through it.
+    
+    Regards, Evoke Health.
+    '''
+    message=EmailMessage(subject='2nd Opinion',body=html_content %(name),to=[email_address])
     message.content_subtype='html'
     message.send()

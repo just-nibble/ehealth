@@ -98,8 +98,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Allauth Config
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 3
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 
@@ -281,10 +283,14 @@ FLW_SANDBOX_SECRET_KEY = env('FLW_SANDBOX_SECRET_KEY')
 FLW_SANDBOX = True
 
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
 
 if HOSTED is False:
     try:
         from .local_settings import *
     except ImportError:
         pass
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'

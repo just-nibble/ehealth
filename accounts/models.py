@@ -49,46 +49,36 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
-class Education(models.Model):
-    degree = models.CharField(max_length=5000, null=True, blank=True)
-    college = models.CharField(max_length=5000, null=True, blank=True)
-    grad_year = models.DateField(null=True, blank=True)
-
-    def __str__(self):
-        return self.degree +' @ '+ self.college
-
-
-class Experience(models.Model):
-    position = models.CharField(max_length=5000, null=True, blank=True)
-    work_place = models.CharField(max_length=5000, verbose_name="place of work", null=True, blank=True)
-    start_year = models.DateField(null=True, blank=True)
-    end_year = models.DateField(null=True, blank=True)
-
-    def __str__(self):
-        return self.role + ' @ ' + self.work_place
-
-
-
-
 
 class CustomUser(AbstractUser):
     # General
+    username = None
+    USERNAME_FIELD = 'email'
     profile_picture = models.ImageField(upload_to="profile_pictures", null=True, blank=True)
     name = models.CharField(max_length=500, null=True)
     email = models.EmailField(unique=True)
-    username = models.CharField(unique=True, max_length=15)
     type = models.CharField(max_length=20, choices=user_type, default="patient")
-    dob = models.DateField(null=True)
+    dob = models.CharField(null=True, blank=True, max_length=200)
     gender = models.CharField(max_length=1, choices=gender_choices, default="M", null=True)
-    country = models.CharField(max_length=2, choices=pytz.country_names.items(), null=True)
+    country = models.CharField(max_length=200, choices=pytz.country_names.items(), null=True)
     phone = PhoneNumberField(null=True)
     address = map_fields.AddressField(max_length=200, null=True, blank=True)
+    latitude = models.FloatField(default=0.000, blank=True)
+    longitude = models.FloatField(default=0.000, blank=True)
     location = models.PointField(null=True, blank=True)
     #geolocation = map_fields.GeoLocationField(max_length=100, null=True, blank=True)
 
     # Doctor
-    education = models.ForeignKey(Education, on_delete=models.CASCADE, null=True, blank=True)
-    experience = models.ForeignKey(Experience, on_delete=models.CASCADE, null=True, blank=True)
+    '''
+    degree = models.CharField(max_length=5000, null=True, blank=True)
+    college = models.CharField(max_length=5000, null=True, blank=True)
+    grad_year = models.CharField(null=True, blank=True, max_length=200)
+
+    work_position = models.CharField(max_length=5000, null=True, blank=True)
+    work_place = models.CharField(max_length=5000, verbose_name="place of work", null=True, blank=True)
+    '''
+    #work_start_year = models.DateField(null=True, blank=True)
+    #work_end_year = models.DateField(null=True, blank=True)
 
     #Patient
     diabetes = models.BooleanField(default=False)
@@ -105,11 +95,14 @@ class CustomUser(AbstractUser):
     moi = models.FileField(upload_to="identification_documents", verbose_name="Means of identification", null=True, blank=True)
     
     # Doctor
+    experience = models.TextField(null=True, blank=True)
+    education = models.TextField(null=True, blank=True)
     biography = models.TextField(null=True, blank=True)
     valid_license = models.FileField(upload_to="license", verbose_name="doctor's license", null=True, blank=True)
     doctor_certificate = models.FileField(upload_to="certificate", verbose_name="doctor's certificate", null=True, blank=True)
   
     #Business
+    business_email = models.EmailField(unique=True, null=True, blank=True)
     business_name = models.CharField(max_length=500, null=True)
     prop_name = models.CharField(max_length=500, null=True, verbose_name="Director / Proprietor's Name")
     country_bus = models.CharField(max_length=500, null=True, verbose_name="Country business is based")
@@ -125,6 +118,27 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return str(self.email)
+
+
+class Education(models.Model):
+    #doctor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
+    degree = models.CharField(max_length=5000, null=True, blank=True)
+    college = models.CharField(max_length=5000, null=True, blank=True)
+    grad_year = models.CharField(null=True, blank=True, max_length=200)
+
+    def __str__(self):
+        return str(self.degree) +' @ '+ str(self.college)
+
+
+class Experience(models.Model):
+    #doctor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
+    position = models.CharField(max_length=5000, null=True, blank=True)
+    work_place = models.CharField(max_length=5000, verbose_name="place of work", null=True, blank=True)
+    start_year = models.CharField(null=True, blank=True, max_length=200)
+    end_year = models.CharField(null=True, blank=True, max_length=200)
+
+    def __str__(self):
+        return self.position + ' @ ' + self.work_place
 
 
 class Symptoms(models.Model):

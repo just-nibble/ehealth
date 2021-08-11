@@ -35,8 +35,8 @@ class Wallet(models.Model):
     # this would still work out of the box.
     #
     # See 'Referencing the User model' [1]
-    user = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
-    currency = models.ForeignKey(Currency, on_delete=models.PROTECT, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    currency = models.ForeignKey(Currency, on_delete=models.CASCADE, null=True, blank=True)
 
     # This stores the wallet's current balance. Also acts
     # like a cache to the wallet's balance as well.

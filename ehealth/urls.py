@@ -38,6 +38,7 @@ urlpatterns = [
     path('api/v1/wallet', include('wallet.urls')),
     path("api/v1/payments/", include("djangoflutterwave.urls", namespace="djangoflutterwave")),
     path("api/v1/payments/", include("payments.urls")),
+    path("api/v1/accounts/", include("accounts.urls")),
     path("api/v1/appointments/", include("appointments.urls")),
     path("api/v1/coupons/", include("coupons.urls")),
     path("api/v1/contacts/", include("contact.urls")),

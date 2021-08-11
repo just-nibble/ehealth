@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
 from accounts.models import CustomUser
 from .serializers import LocationBasedRecommendationSerializer
 from django.contrib.gis.db.models.functions import Distance
@@ -10,6 +10,8 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import permissions
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -17,20 +19,59 @@ from rest_framework import status
 class LocationRecommendationListAPIView(APIView):
 
     def get(self, request, format=None):
-        #current_user_loc = self.request.user.location
-        longitude = -80.191788
-        latitude = 25.761681
+        
+        current_user = self.request.user
+        #longitude = -80.191788
+        #latitude = 25.761681
 
-        user_location = Point(longitude, latitude, srid=4326)
+        #user_location = Point(longitude, latitude, srid=4326)
+        #current_user = CustomUser.objects.get(id=self.request.user.id)
+        #current_user = get_object_or_404(CustomUser, pk=1)
+        #user_longitude = current_user.longitude
+        #user_latitude = current_user.latitude
+        user_location = current_user.location
+        doctors = CustomUser.objects.annotate(distance=Distance('location', user_location)).exclude(email=current_user.email).exclude(latitude=0.0)
 
-        doctors = CustomUser.objects.annotate(distance=Distance('location', user_location))
+        
 
         serializer = LocationBasedRecommendationSerializer(doctors, many=True)
+        #permission_classes = (permissions.IsAuthenticated,)
         return Response(serializer.data)
 
-    def post(self, request, format=None):
-        serializer = LocationBasedRecommendationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class DoctorLocationRecommendationListAPIView(APIView):
+
+    def get(self, request, format=None):
+        
+        current_user = self.request.user
+        #longitude = -80.191788
+        #latitude = 25.761681
+
+        #user_location = Point(longitude, latitude, srid=4326)
+        #current_user = CustomUser.objects.get(id=self.request.user.id)
+        #current_user = get_object_or_404(CustomUser, pk=1)
+        #user_longitude = current_user.longitude
+        #user_latitude = current_user.latitude
+        user_location = current_user.location
+        doctors = CustomUser.objects.annotate(distance=Distance('location', user_location)).exclude(email=current_user.email).exclude(latitude=0.0).filter(type="Doctor")
+
+        
+
+        serializer = LocationBasedRecommendationSerializer(doctors, many=True)
+        #permission_classes = (permissions.IsAuthenticated,)
+        return Response(serializer.data)
+
+
+class HospitalLocationRecommendationListAPIView(APIView):
+
+    def get(self, request, format=None):
+        
+        current_user = self.request.user
+        user_location = current_user.location
+        doctors = CustomUser.objects.annotate(distance=Distance('location', user_location)).exclude(email=current_user.email).exclude(latitude=0.0).filter(type="Organization")
+
+        
+
+        serializer = LocationBasedRecommendationSerializer(doctors, many=True)
+        #permission_classes = (permissions.IsAuthenticated,)
+        return Response(serializer.data)

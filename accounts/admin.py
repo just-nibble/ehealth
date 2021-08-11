@@ -7,11 +7,11 @@ from django.contrib.gis.admin import OSMGeoAdmin
 
 # Register your models here.
 
-class UserAdmin(BaseUserAdmin):
+@admin.register(CustomUser)
+class UserAdmin(OSMGeoAdmin):
 
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'type', 'last_login', 'first_name', 'last_name', 'gender', 'phone', 'country', 'address', 'location')}),
-        ('Doctor', {'fields':('experience', 'education')}),
+        (None, {'fields': ('email', 'password', 'type', 'last_login', 'first_name', 'last_name', 'gender', 'phone', 'country', 'address', 'latitude', 'longitude', 'location')}),
         ('Permissions', {'fields': (
             'is_active', 
             'is_staff', 
@@ -36,6 +36,6 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('email',)
     filter_horizontal = ('groups', 'user_permissions',)
 
-admin.site.register(CustomUser, UserAdmin)
+#admin.site.register(CustomUser, UserAdmin)
 admin.site.register(Education)
 admin.site.register(Experience)

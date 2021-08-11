@@ -1,15 +1,17 @@
 from re import I
 from django.shortcuts import render
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .serializers import UserSerializer
-from django.contrib.auth import get_user_model as User
-from django_filters import rest_framework as filters
+from .models import CustomUser
+#from django_filters import rest_framework as filters
 
 # Create your views here.
 
-class UserListSeriializer(ListCreateAPIView):
-	pass
-	#serializer_class = UserSerializer
-	#queryset = User.objects.all()
-	#filter
+class UserListAPIView(ListCreateAPIView):
+	serializer_class = UserSerializer
+	queryset = CustomUser.objects.all()
 
+
+class UserDetailAPIView(RetrieveUpdateDestroyAPIView):
+	serializer_class = UserSerializer
+	queryset = CustomUser.objects.all()
